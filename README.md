@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Issue Tracker
 
-## Getting Started
+A Next.js Issue Tracker scaffold with TypeScript, Tailwind CSS, and a navy + yellow theme.
 
-First, run the development server:
+## Tech stack
+
+- **Next.js** (App Router)
+- **TypeScript**
+- **Tailwind CSS**
+- **No `.env` files** — configuration lives in `src/config/`
+
+## Project structure
+
+```
+src/
+├── app/
+│   └── api/              # Route Handlers (backend)
+├── components/
+│   ├── ui/               # Reusable UI primitives
+│   └── issue-tracker/    # Feature components
+├── config/               # App, theme, and database config
+├── hooks/                # Custom React hooks
+├── lib/                  # Shared utilities
+├── server/               # Backend logic (services, errors, responses)
+├── services/             # Frontend API clients
+└── types/                # Shared TypeScript types
+```
+
+## API
+
+The backend runs as Next.js Route Handlers under `src/app/api/`.
+
+| Method | Route | Description |
+| ------ | ----- | ----------- |
+| `GET` | `/api/health` | Health check — returns `{ success: true, data: { status, service } }` |
+
+Example:
+
+```bash
+curl http://localhost:3000/api/health
+```
+
+Response:
+
+```json
+{
+  "success": true,
+  "data": {
+    "status": "ok",
+    "service": "issue-tracker-api"
+  }
+}
+```
+
+The home page calls this endpoint on load and shows **API connected** when the backend is reachable.
+
+## Getting started
+
+Install dependencies (if needed):
+
+```bash
+npm install
+```
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command        | Description              |
+| -------------- | ------------------------ |
+| `npm run dev`  | Start development server |
+| `npm run build`| Production build         |
+| `npm run start`| Start production server  |
+| `npm run lint` | Run ESLint               |
 
-## Learn More
+## Theme
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Navy and yellow tokens are defined in `src/config/theme.ts` and wired into Tailwind via `src/app/globals.css`.
